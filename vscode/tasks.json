@@ -1,0 +1,108 @@
+{
+	"version": "2.0.0",
+	"echoCommand": true,
+	"options": {
+		"cwd": "${workspaceFolder}",
+		"env": {
+			"PATH": "${env.PATH};C:\\gnuARM\\BuildTools\\bin;C:\\gnuARM\\JLink;C:\\gnuARM\\CMake\\bin;C:\\gnuARM\\ArmGCC\\bin",
+			"GCC_PATH": "C:/gnuARM/ArmGCC/bin"
+		}
+	},
+	"tasks": [
+		{
+			"label": "CMake Debug",
+			"type": "shell",
+			"command": "cd \"${workspaceRoot}/build\" && cmake -G \"MinGW Makefiles\" -DCMAKE_BUILD_TYPE=Debug ..",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "CMake Release",
+			"type": "shell",
+			"command": "cd \"${workspaceRoot}/build\" && cmake -G \"MinGW Makefiles\" -DCMAKE_BUILD_TYPE=Release ..",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Make All",
+			"type": "shell",
+			"command": "cd \"${workspaceRoot}/build\" && make -j 2 all",
+			"problemMatcher": {
+				"base": "$gcc",
+				"fileLocation": [
+					"absolute"
+				]
+			},
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "Clear Build",
+			"type": "shell",
+			"command": "rm -rf build && mkdir build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Write to Flash MCU",
+			"type": "shell",
+			"command": "JLink.exe -Device STM32F103VE -If SWD -Speed 1000 .vscode\\JLink\\FlashMCU.jlink",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Read Flash from MCU",
+			"type": "shell",
+			"command": "JLink.exe -Device STM32F103VE -If SWD -Speed 1000 .vscode\\JLink\\ReadMCU.jlink",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Erase Flash MCU",
+			"type": "shell",
+			"command": "JLink.exe -Device STM32F103VE -If SWD -Speed 1000 .vscode\\JLink\\EraseMCU.jlink",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Reset MCU",
+			"type": "shell",
+			"command": "JLink.exe -Device STM32F103VE -If SWD -Speed 1000 .vscode\\JLink\\ResetMCU.jlink",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Start GDB Server (Cortex-M4)",
+			"type": "shell",
+			"command": "start JLinkGDBServer.exe -select USB -device Cortex-M3 -if SWD -speed 1000 -ir",
+			"group": {
+				"kind": "test",
+				"isDefault": true
+			},
+			"problemMatcher": []
+		}
+	]
+}

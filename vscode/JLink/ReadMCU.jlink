@@ -1,0 +1,4 @@
+savebin build\fw-readback.bin, 0x00, 0x80000
+r
+g
+q
