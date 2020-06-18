@@ -36,7 +36,11 @@
                     "C:/gnuARM/ArmGCC/lib"
                 ],
                 "limitSymbolsToIncludedHeaders": true
-            }
+            },
+			"compilerArgs": [
+                "-mthumb",
+                "-mcpu=cortex-m3"
+            ]
         }
     ],
     "version": 4
