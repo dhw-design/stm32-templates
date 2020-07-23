@@ -3,11 +3,16 @@
 //    "cortex-debug.openocdPath": "C:\\Program Files\\GNU MCU Eclipse\\OpenOCD\\0.10.0-7-20180123-1217\\bin\\openocd.exe"
     "cortex-debug.JLinkGDBServerPath": "C:/gnuARM/JLink/JLinkGDBServerCL.exe",
     "cmake.configureOnOpen": true,
-	"cmake.configureEnvironment": {
+    "cmake.environment": {
         "PATH": "${env.PATH};C:\\gnuARM\\BuildTools\\bin;C:\\gnuARM\\JLink;C:\\gnuARM\\CMake\\bin;C:\\gnuARM\\ArmGCC\\bin"
     },
     "cmake.generator": "MinGW Makefiles",
     "cmake.mingwSearchDirs": [
         "C:\\gnuARM\\BuildTools\\bin"
     ],
+	"cmake.configureSettings": {
+		"TOOLCHAIN_PREFIX": "C:/gnuARM/ArmGCC/",
+		"TARGET_TRIPLET": "arm-none-eabi"
+    }
+    
 }

@@ -1,0 +1,9 @@
+[
+	{
+		"name": "ARM none eabi",
+		"toolchainFile": "${workspaceFolder}/cmake/stm32-gcc.cmake",
+		"preferredGenerator": {
+			"name": "MinGW Makefiles"
+		}
+	}
+]
