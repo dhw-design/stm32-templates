@@ -10,51 +10,6 @@
 	},
 	"tasks": [
 		{
-			"label": "CMake Debug",
-			"type": "shell",
-			"command": "cd \"${workspaceRoot}/build\" && cmake -G \"MinGW Makefiles\" -DCMAKE_BUILD_TYPE=Debug ..",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "CMake Release",
-			"type": "shell",
-			"command": "cd \"${workspaceRoot}/build\" && cmake -G \"MinGW Makefiles\" -DCMAKE_BUILD_TYPE=Release ..",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": []
-		},
-		{
-			"label": "Make All",
-			"type": "shell",
-			"command": "cd \"${workspaceRoot}/build\" && make -j 2 all",
-			"problemMatcher": {
-				"base": "$gcc",
-				"fileLocation": [
-					"absolute"
-				]
-			},
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			}
-		},
-		{
-			"label": "Clear Build",
-			"type": "shell",
-			"command": "rm -rf build && mkdir build",
-			"group": {
-				"kind": "build",
-				"isDefault": true
-			},
-			"problemMatcher": []
-		},
-		{
 			"label": "Write to Flash MCU",
 			"type": "shell",
 			"command": "JLink.exe -Device STM32F103VE -If SWD -Speed 1000 .vscode\\JLink\\FlashMCU.jlink",
