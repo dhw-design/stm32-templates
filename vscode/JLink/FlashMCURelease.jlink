@@ -1,0 +1,5 @@
+loadbin build\Release\[fw-name].bin, 0x00
+verifybin build\Release\[fw-name].bin, 0x00
+r
+g
+q

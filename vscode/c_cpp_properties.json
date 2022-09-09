@@ -5,7 +5,7 @@
             "compilerPath": "C:/gnuARM/ArmGCC/bin/arm-none-eabi-g++.exe",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-x86",
+            "intelliSenseMode": "gcc-arm",
 			"compileCommands": "${workspaceFolder}/build/compile_commands.json",
             "configurationProvider": "ms-vscode.cmake-tools"
         }

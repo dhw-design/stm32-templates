@@ -1,5 +1,5 @@
-loadbin build\fw.bin, 0x00
-verifybin build\fw.bin, 0x00
+loadbin build\Debug\[fw-name].bin, 0x00
+verifybin build\Debug\[fw-name].bin, 0x00
 r
 g
 q

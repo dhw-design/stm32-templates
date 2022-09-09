@@ -7,7 +7,7 @@ SET(TOOLCHAIN_PREFIX "C:/gnuARM/ArmGCC/")
 #Путь к папке make (слеш в конце обязателен)
 SET(MAKE_PREFIX "C:/gnuARM/BuildTools/bin/")
 
-#Скрипт для линковки
+#Скрипт для линковки. В makefile, создаваемом кубом, значение указано в переменной LDSCRIPT
 set(LINKER_SCRIPT "STM32F103VETx_FLASH.ld")
 
 SET(TARGET_TRIPLET "arm-none-eabi")
@@ -25,11 +25,16 @@ project(cmake-template)
 
 enable_language(C ASM)
 
-# define CPU OPTIONS
+# Флаги контроллера. В makefile, создаваемом кубом, значение берется из переменной CPU
 set(CPU_OPTIONS
     -mthumb 
     -mcpu=cortex-m3
     )
+
+#Флаги FPU (при наличии). В makefile, создаваемом кубом, значение берется из переменных FPU и FLOAT-ABI	
+set(FPU_OPTIONS
+	
+	)
 
 # Варианты оптимизации (-O0 -O1 -O2 -O3 -Os -Ofast -Og)
 #Дополнительные флаги компиляции сборки Debug
@@ -40,15 +45,17 @@ set(CMAKE_CXX_FLAGS_DEBUG "-Og -g")
 set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
-
+#В makefile, создаваемом кубом, дефайны описываются в переменной C_DEFS
 add_definitions(
     -DUSE_FULL_LL_DRIVER
     -DSTM32F103xE
 )
 
+#Список путей заголовочных файлов
 include_directories(
     ${CMAKE_SOURCE_DIR}
 )
+
 
 link_directories(
     ${CMAKE_SOURCE_DIR}
@@ -80,59 +87,13 @@ add_link_options(
 set_source_files_properties(startup_stm32f103xe.s PROPERTIES COMPILE_FLAGS "-x assembler-with-cpp")
 # list of modules to build final firmware (without extension .c or .cpp)
 
-set(FREERTOS_SRC
-    Middlewares/Third_Party/FreeRTOS/Source/croutine.c
-    Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
-    Middlewares/Third_Party/FreeRTOS/Source/list.c
-    Middlewares/Third_Party/FreeRTOS/Source/queue.c
-    Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
-    Middlewares/Third_Party/FreeRTOS/Source/tasks.c
-    Middlewares/Third_Party/FreeRTOS/Source/timers.c
-    Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.c
-    Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
-    Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c
-    )
-
-set(STM32HAL_SRC
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c
-    Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c
-)
-
+#Добавление .c файлов для компиляции. Каждый новый файл указывается в новой строке. В makefile, создаваемом кубом, данные хранятся в переменной C_SOURCES
 set(USER_SRC
     Core/Src/main.c
-    Core/Src/gpio.c
-    Core/Src/stm32f1xx_it.c
-    Core/Src/system_stm32f1xx.c
-    Core/Src/fsmc.c
-    Core/Src/tim.c
-    Core/Src/stm32f1xx_hal_msp.c
-    Core/Src/freertos.c
-    Core/Src/stm32f1xx_hal_timebase_tim.c
-    Core/Src/taskLed.c
+    
 )
 
 add_executable(${PROJECT_NAME}
-    ${FREERTOS_SRC}
-    ${STM32HAL_SRC}
     ${USER_SRC}
     startup_stm32f103xe.s
 )

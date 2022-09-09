@@ -54,13 +54,13 @@ message(STATUS "Directory for output files: ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 #
 if(NOT TOOLCHAIN_PREFIX)
   set(TOOLCHAIN_PREFIX "C:/gnuARM/ArmGCC/")
-  message(STATUS "TOOLCHAIN_PREFIX not specified: Use Debug by default")
+  message(STATUS "TOOLCHAIN_PREFIX not specified: Use C:/gnuARM/ArmGCC/ by default")
 endif()
 
 #
 if(NOT TARGET_TRIPLET)
   set(TARGET_TRIPLET "arm-none-eabi")
-  message(STATUS "TARGET_TRIPLET not specified: Use Debug by default")
+  message(STATUS "TARGET_TRIPLET not specified: Use arm-none-eabi by default")
 endif()
 
 SET(TOOLCHAIN_BIN_DIR "${TOOLCHAIN_PREFIX}bin")
